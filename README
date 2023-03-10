@@ -1,0 +1,66 @@
+Proca Andreea-Dana
+Grupa 322CC
+
+    Am folosit laboratorul 10 si biblioteca parson recomandata pentru parsarea
+JSON a raspunsurilor primite de la server in C din care am utilizat fuctiile:
+*json_value_init_object();
+*json_value_get_object();
+*json_object_set_string();
+*json_object_set_number();
+*json_serialize_to_string_pretty().
+(link sursa pentru parson.c si parson.h: https://github.com/kgabis/parson)
+
+    Fisierele buffer.c, buffer.h, helpers.c, helpers.c sunt cele din laboratorul
+10, la fel si requests.c si requests.h la care am facut cateva modificari si
+am adaugat functia compute_delete_request dupa modelul compute_get_request
+si compute_post_request.
+    In client.c:
+-> register
+    Daca comanda data este "register", apelez functia reg_log_payload, daca
+    credentialele citite sunt valide, creez si trimit un request de tip POST
+    la server cu comanda de inregistrare, primesc raspuns si in functie de 
+    status afisez un mesaj corespunzator.
+-> login
+    Daca comanda data este "login", apelez functia reg_log_payload, daca
+    credentialele citite sunt valide, creez si trimit un request de tip POST
+    la server cu comanda de logare, primesc raspuns si in functie de 
+    status afisez un mesaj corespunzator. Daca comanda a fost realizata cu
+    succes, retin cookie-ul primit.
+-> enter_library
+    Daca comanda data este "enter_library", creez si trimit un request de tip
+    GET la server cu comanda de solicitare acces, primesc raspuns si in functie
+    de status afisez un mesaj corespunzator. Daca comanda a fost realizata cu
+    succes, retin token-ul primit.
+-> get_books
+    Daca comanda data este "get_books", creez si trimit un request de tip GET
+    la server cu comanda de cautare, primesc raspuns si in functie de status 
+    afisez un mesaj corespunzator: fie cartile existente in biblioteca, fie 
+    un mesaj de eroare.
+-> get_book
+    Daca comanda data este "get_book", citesc ID-ul cartii care este cautata,
+    creez URL-ul adaugand ID-ul, creez si trimit un request de tip GET la server
+    cu comanda de cautare, primesc raspuns si in functie de status afisez un mesaj
+    corespunzator: fie detaliile cartii, fie un mesaj de eroare.
+-> add_book
+    Daca comanda data este "add_book", apelez functia add_book_payload, daca
+    informatiile citite sunt valide, creez si trimit un request de tip POST
+    la server cu comanda de adaugare, primesc raspuns si in functie de 
+    status afisez un mesaj corespunzator.
+-> delete_book
+    Daca comanda data este "delete_book", citesc ID-ul cartii care se doreste
+    sa se stearga, creez URL-ul adaugand ID-ul, creez trimit un request de tip
+    DELETE la server cu comanda de stergere, primesc raspuns si in functie de
+    status afisez un mesaj corespunzator.
+-> logout
+    Daca comanda data este "logout", creez si trimit un request de tip GET la
+    server cu comanda de delogare, primesc raspuns si in functie de status afisez
+    un mesaj corespunzator.
+-> exit
+    Daca comanda data este "exit", se termina programul.
+
+    Functia reg_log_payload citeste username si password, verifica daca cele
+doua campuri au fost completate corect (fara spatii) si le transforma in format
+JSON si le returneaza.
+    Functia add_book_payload citeste title, author, genre, publisher si page_count
+verifica daca campurile au fost completate corect (page_count este numar) si le
+transforma in format JSON si le returneaza.
