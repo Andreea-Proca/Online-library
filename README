@@ -1,5 +1,6 @@
 Proca Andreea-Dana
 Grupa 322CC
+Client Web. Comunicaţie cu REST API
 
     Am folosit laboratorul 10 si biblioteca parson recomandata pentru parsarea
 JSON a raspunsurilor primite de la server in C din care am utilizat fuctiile:
